@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anonimização de Processos</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 900px; margin: 2rem auto; }
+    .card { border: 1px solid #ddd; padding: 1rem; border-radius: 6px; margin-bottom: 1rem }
+    .entities { font-family: monospace; white-space: pre-wrap }
+  </style>
+</head>
+<body>
+  <h1>Anonimização de PDF</h1>
+  <div class="card">
+    <form id="uploadForm">
+      <label>Selecione um arquivo PDF:</label><br/>
+      <input type="file" id="file" name="file" accept="application/pdf" required /><br/><br/>
+      <button type="submit">Enviar e Processar</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h3>Resumo</h3>
+    <div id="summary">—</div>
+  </div>
+
+  <div class="card">
+    <h3>Entidades Detectadas</h3>
+    <div id="entities" class="entities">—</div>
+  </div>
+
+  <div class="card">
+    <h3>Download PDF Anonimizado</h3>
+    <div id="download">—</div>
+  </div>
+
+  <script>
+    const form = document.getElementById('uploadForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fileInput = document.getElementById('file');
+      if (!fileInput.files.length) return alert('Selecione um PDF');
+      const fd = new FormData();
+      fd.append('file', fileInput.files[0]);
+      document.getElementById('summary').textContent = 'Processando...';
+      document.getElementById('entities').textContent = '';
+      document.getElementById('download').textContent = '';
+      try {
+        const res = await fetch('/process-file', { method: 'POST', body: fd });
+        if (!res.ok) throw new Error('Erro no processamento');
+        const data = await res.json();
+        document.getElementById('summary').textContent = data.summary || '—';
+        document.getElementById('entities').textContent = JSON.stringify(data.entities, null, 2);
+        const link = document.createElement('a');
+        link.href = data.anonymized_download;
+        link.textContent = 'Baixar PDF anonimizado';
+        link.download = '';
+        document.getElementById('download').appendChild(link);
+      } catch (err) {
+        document.getElementById('summary').textContent = 'Erro: ' + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
