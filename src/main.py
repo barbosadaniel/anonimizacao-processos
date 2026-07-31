@@ -145,13 +145,17 @@ async def process_file(file: UploadFile = File(...)):
     text = extract_text_from_pdf_bytes(content)
     anonymized_text, entities = anonymize_text(text)
     summary = generate_summary(text)
-    file_id = str(uuid.uuid4())
-    anonymized_path = os.path.join(UPLOAD_DIR, f"{file_id}.pdf")
+
+    original_name = file.filename or 'document.pdf'
+    original_stem = os.path.splitext(original_name)[0]
+    anonymized_filename = f"{original_stem}_anon.pdf"
+    anonymized_path = os.path.join(UPLOAD_DIR, anonymized_filename)
+
     create_pdf_from_text(anonymized_text, anonymized_path)
     return JSONResponse({
         'summary': summary,
         'entities': entities,
-        'anonymized_download': f"/download/{file_id}.pdf"
+        'anonymized_download': f"/download/{anonymized_filename}"
     })
 
 

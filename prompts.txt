@@ -1,0 +1,8 @@
+[2026-07-31 14:25:13]
+- "Vamos melhorar a interface gráfica"
+
+[2026-07-31 14:25:13]
+- "incluir no projeto um arquivo prompts.txt e inclua todos os prompts digitados daqui para frente"
+
+[2026-07-31 14:25:13]
+- "incluir data e hora"
