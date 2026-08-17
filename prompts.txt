@@ -6,3 +6,21 @@
 
 [2026-07-31 14:25:13]
 - "incluir data e hora"
+
+[2026-08-12 12:00:00]
+- "atualizar o arquivo prompts.txt com todos os prompts digitados daqui para frente"
+
+[2026-08-12 12:15:00]
+- "alterar a aplicação para manter a mesma formatação do pdf original e colocar uma tarja preta onde houve anonimização"
+
+[2026-08-12 12:30:00]
+- "algumas entidades detectadas não foram tarjadas no pdf e algunas entidades não foram detectadas; a entidade Carlos alberto silveira não foi detectado mas foi parcialmente tarjado; A entidade Roberto Mendes Fontes foi detectada corretamente mas não foi tarjada"
+
+[2026-08-12 12:45:00]
+- "a detecção das entidades melhorou, mas as tarjas no pdf estão nos locais errados"
+
+[2026-08-17 10:10:00]
+- "atualizar o arquivo prompts.txt com todos os prompts digitados daqui para frente"
+
+[2026-08-17 10:11:00]
+- "executar a aplicação, testes e corrigir os erros"

@@ -35,8 +35,9 @@ python -m uvicorn src.main:app --reload
 
 ### Docker
 ```bash
-docker-compose -f docker/docker-compose.yml build --no-cache api
-docker-compose -f docker/docker-compose.yml up -d
+copy .env.example .env
+docker compose -f docker/docker-compose.yml build --no-cache api
+docker compose -f docker/docker-compose.yml up -d
 ```
 
 ### Verificar

@@ -1,0 +1,168 @@
+﻿{
+    "summary":  "PODER JUDICI├üRIO\nTRIBUNAL DE JUSTI├çA DO ESTADO DE S├âO PAULO\nVARIA C├ìVEL DA COMARCA DE S├âO P AULO - 3┬¬ VARA C├ìVEL\nPROCESSO N┬║: 1002345-67.2024.8.26.0100\nCLASSE PROCESSUAL: A├º├úo de Cobran├ºa c/c Indeniza├º├úo por Danos Morais\nREQUERENTE (AUTOR): CARLOS ALBERTO SILVEIRA (CPF n┬║ 123.456.789-00)\nREQUERIDO (R├ëU): BANCO FINANCEIRO NACIONAL S.A. (CNPJ n┬║ 98.765.432/0001-10)\nADVOGADO DO AUTOR: Dr. Roberto Mendes Fontes (OAB/SP 234.567)\nV ALOR DA CAUSA: R$ 45.000,00 (quarenta e cinco mil reais)\nPETI├ç├âO INICIAL - S├ìNTESE DOS FATOS\nO  Requerente,  CARLOS  ALBERTO  SILVEIRA ,  brasileiro,  casado,  engenheiro  civil,  residente  e\ndomiciliado na Rua das Palmeiras, n┬║ 450, Apto 82, Bairro Bela Vista, S├úo Paulo/SP, CEP 01310-100 , portador\ndo  RG  n┬║  12.345.678-9  SSP/SP  e  do  CPF  n┬║  123.456.789-00 ,  endere├ºo  eletr├┤nico:\ncarlos.silveira@emailficticio.com.br , telefone (11) 98765-4321, vem respeitosamente ├á presen├ºa\nde V ossa Excel├¬ncia propor a presente a├º├úo.",
+    "entities":  [
+                     {
+                         "type":  "CPF",
+                         "value":  "123.456.789-00",
+                         "start":  273,
+                         "end":  287
+                     },
+                     {
+                         "type":  "CPF",
+                         "value":  "321.654.987-11",
+                         "start":  1163,
+                         "end":  1177
+                     },
+                     {
+                         "type":  "CPF",
+                         "value":  "11976543210",
+                         "start":  1197,
+                         "end":  1208
+                     },
+                     {
+                         "type":  "CPF",
+                         "value":  "456.789.012-34",
+                         "start":  1412,
+                         "end":  1426
+                     },
+                     {
+                         "type":  "CNPJ",
+                         "value":  "98.765.432/0001-10",
+                         "start":  346,
+                         "end":  364
+                     },
+                     {
+                         "type":  "EMAIL",
+                         "value":  "carlos.silveira@emailficticio.com.br",
+                         "start":  822,
+                         "end":  858
+                     },
+                     {
+                         "type":  "EMAIL",
+                         "value":  "fernanda.albuquerque@bancofinanceiro.com.br",
+                         "start":  1594,
+                         "end":  1637
+                     },
+                     {
+                         "type":  "PHONE",
+                         "value":  "1002345-67.2024.8.26.0100",
+                         "start":  126,
+                         "end":  151
+                     },
+                     {
+                         "type":  "PHONE",
+                         "value":  "123.456.789-00",
+                         "start":  273,
+                         "end":  287
+                     },
+                     {
+                         "type":  "PHONE",
+                         "value":  "98.765.432",
+                         "start":  346,
+                         "end":  356
+                     },
+                     {
+                         "type":  "PHONE",
+                         "value":  "01310-100",
+                         "start":  711,
+                         "end":  720
+                     },
+                     {
+                         "type":  "PHONE",
+                         "value":  "12.345.678-9",
+                         "start":  744,
+                         "end":  756
+                     },
+                     {
+                         "type":  "PHONE",
+                         "value":  "11) 98765-4321",
+                         "start":  871,
+                         "end":  885
+                     },
+                     {
+                         "type":  "PHONE",
+                         "value":  "321.654.987-11",
+                         "start":  1163,
+                         "end":  1177
+                     },
+                     {
+                         "type":  "PHONE",
+                         "value":  "11976543210",
+                         "start":  1197,
+                         "end":  1208
+                     },
+                     {
+                         "type":  "PHONE",
+                         "value":  "456.789.012-34",
+                         "start":  1412,
+                         "end":  1426
+                     },
+                     {
+                         "type":  "PHONE",
+                         "value":  "202309871234",
+                         "start":  1700,
+                         "end":  1712
+                     },
+                     {
+                         "type":  "NAME",
+                         "value":  "Roberto Mendes Fontes",
+                         "start":  389,
+                         "end":  410
+                     },
+                     {
+                         "type":  "NAME",
+                         "value":  "MARCOS VIN├ìCIUS PEREIRA",
+                         "start":  1133,
+                         "end":  1156
+                     },
+                     {
+                         "type":  "NAME",
+                         "value":  "JULIANA\nRODRIGUES DOS SANTOS",
+                         "start":  1377,
+                         "end":  1405
+                     },
+                     {
+                         "type":  "NAME",
+                         "value":  "FERNANDA  ALBUQUERQUE",
+                         "start":  1548,
+                         "end":  1569
+                     },
+                     {
+                         "type":  "NAME",
+                         "value":  "LUIZ\nEDUARDO CASTRO",
+                         "start":  2130,
+                         "end":  2149
+                     },
+                     {
+                         "type":  "NAME",
+                         "value":  "por Danos Morais\nREQUERENTE",
+                         "start":  204,
+                         "end":  231
+                     },
+                     {
+                         "type":  "NAME",
+                         "value":  "CARLOS ALBERTO SILVEIRA",
+                         "start":  241,
+                         "end":  264
+                     },
+                     {
+                         "type":  "NAME",
+                         "value":  "CARLOS  ALBERTO  SILVEIRA",
+                         "start":  539,
+                         "end":  564
+                     },
+                     {
+                         "type":  "NAME",
+                         "value":  "arquivo cont├®m dados fict├¡cios estruturados",
+                         "start":  2818,
+                         "end":  2861
+                     },
+                     {
+                         "type":  "NAME",
+                         "value":  "algoritmos de Named Entity Recognition",
+                         "start":  2969,
+                         "end":  3007
+                     }
+                 ],
+    "anonymized_download":  "/download/processo_teste_anonimizacao_anon.pdf"
+}
