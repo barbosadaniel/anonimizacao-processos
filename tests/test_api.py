@@ -40,3 +40,19 @@ def test_process_file_uses_original_name_plus_anon():
     saved_path = Path(UPLOAD_DIR) / 'sample_anon.pdf'
     assert saved_path.exists()
 
+
+def test_process_file_payload_details():
+    pdf_bytes = _make_pdf_bytes('Nome: Dr. Roberto Mendes Fontes. CPF: 123.456.789-00.')
+    response = client.post(
+        '/process-file',
+        files={'file': ('sample.pdf', pdf_bytes, 'application/pdf')}
+    )
+
+    assert response.status_code == 200
+    data = response.json()
+    assert 'summary' in data
+    assert 'entities' in data
+    assert len(data['entities']) > 0
+    assert any(e['type'] == 'CPF' and e['value'] == '123.456.789-00' for e in data['entities'])
+    assert any(e['type'] == 'NAME' and 'Roberto' in e['value'] for e in data['entities'])
+

@@ -24,3 +24,14 @@
 
 [2026-08-17 10:11:00]
 - "executar a aplicação, testes e corrigir os erros"
+
+[2026-08-17 13:06:23]
+- "atualizar o arquivo prompts.txt com todos os prompts digitados daqui para frente"
+
+[2026-08-17 13:09:36]
+- "Correções:
+Não está apresentando a quantidade de entidades e tipos, nem as entidades detectadas. Não apresentou o resumo do documento."
+
+[2026-08-17 13:14:20]
+- "executar a aplicação"
+

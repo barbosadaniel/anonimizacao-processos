@@ -279,7 +279,7 @@ def find_entity_boxes_in_pdf(pdf_bytes: bytes, entities: List[dict]) -> List[dic
     return redaction_boxes
 
 
-def generate_summary(text: str) -> str:
+async def generate_summary(text: str) -> str:
     # Prefer DeepSeek if configured
     deepseek_key = os.getenv('DEEPSEEK_API_KEY')
     deepseek_base = os.getenv('DEEPSEEK_API_BASE')
@@ -287,8 +287,8 @@ def generate_summary(text: str) -> str:
         try:
             payload = {"task": "summarize", "text": text}
             headers = {"Authorization": f"Bearer {deepseek_key}"}
-            with httpx.Client(timeout=30) as client:
-                r = client.post(f"{deepseek_base}/summaries", json=payload, headers=headers)
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                r = await client.post(f"{deepseek_base}/summaries", json=payload, headers=headers)
                 if r.status_code == 200:
                     return r.json().get('summary', '')
         except Exception:
@@ -385,12 +385,11 @@ async def process_file(file: UploadFile = File(...)):
     with open(anonymized_path, 'wb') as f:
         f.write(anonymized_pdf)
     
-    # TODO: async summary generation to avoid blocking
-    # summary = generate_summary(text)
-    summary = f"Document processed with {len(redaction_boxes)} redactions applied."
+    summary = await generate_summary(text)
     
     return JSONResponse({
         'summary': summary,
+        'entities': [{"type": e['type'], "value": e['value']} for e in entities],
         'entities_total': len(entities),
         'redactions_applied': len(redaction_boxes),
         'anonymized_download': f"/download/{anonymized_filename}"
