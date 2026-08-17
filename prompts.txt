@@ -35,3 +35,9 @@ Não está apresentando a quantidade de entidades e tipos, nem as entidades dete
 [2026-08-17 13:14:20]
 - "executar a aplicação"
 
+[2026-08-17 13:23:42]
+- "Algumas entidades não foram detectadas, por exemplo, os nomes: JULIANA RODRIGUES DOS SANTOS E LUIZ EDUARDO CASTRO. Melhore o reconhecimento das entidades."
+
+[2026-08-17 13:32:38]
+- "alterar a interface gráfica para ficar com a mesma identidade visual de https://www.jfpb.jus.br"
+

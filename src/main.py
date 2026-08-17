@@ -83,6 +83,14 @@ def detect_entities_in_text(text: str) -> List[dict]:
     for m in name_after_title.finditer(text):
         entities.append({"type": "NAME", "value": m.group(1), "start": m.start(1), "end": m.end(1)})
 
+    # Padrão: Nomes após rótulos comuns em processos (ex: "AUTOR: Carlos Silva", "REQUERENTE: Carlos Silva")
+    name_after_label = re.compile(
+        r"(?:AUTOR|AUTORA|RÉU|RÉ|REQUERENTE|REQUERIDO|REQUERIDA|ADVOGADO|ADVOGADA|PROCURADOR|PROCURADORA|JUIZ|JUÍZA|MEMBRO)\s*:\s*([A-ZÁÉÍÓÚ][A-ZÁÉÍÓÚa-záéíóú]*(?:\s+[A-ZÁÉÍÓÚ][A-ZÁÉÍÓÚa-záéíóú]*){1,4})",
+        re.IGNORECASE
+    )
+    for m in name_after_label.finditer(text):
+        entities.append({"type": "NAME", "value": m.group(1), "start": m.start(1), "end": m.end(1)})
+
     # Padrão: NOME COMPLETO em maiúsculas seguido de "(" ou ", " ou "brasileiro"
     name_uppercase = re.compile(
         r"\b([A-ZÁÉÍÓÚ][A-ZÁÉÍÓÚ]+(?:\s+[A-ZÁÉÍÓÚ][A-ZÁÉÍÓÚ]+){1,4})\s*(?:\(|,\s+brasileiro|,\s+casado)",
@@ -217,11 +225,13 @@ def find_entity_boxes_in_pdf(pdf_bytes: bytes, entities: List[dict]) -> List[dic
                     words_in_entity = entity_value.split()
                     if not words_in_entity:
                         continue
-                    # Normalizar para comparação
+                    # Normalizar para comparação (substituindo todas as quebras de linha e múltiplos espaços por espaço simples)
                     entity_normalized = re.sub(r'[^\w\s]', '', entity_value).lower()
+                    entity_normalized = re.sub(r'\s+', ' ', entity_normalized).strip()
                     
-                    # Verifica se a entidade está nesta página (com normalização)
+                    # Verifica se a entidade está nesta página (com normalização e quebras de linha removidas)
                     page_text_normalized = re.sub(r'[^\w\s]', '', page_text).lower()
+                    page_text_normalized = re.sub(r'\s+', ' ', page_text_normalized).strip()
                     if entity_normalized not in page_text_normalized:
                         continue
                     

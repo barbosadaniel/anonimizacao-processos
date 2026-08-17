@@ -3,334 +3,823 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Anonimização de Processos</title>
+  <meta name="description" content="Sistema de Anonimização de Documentos Judiciais - Justiça Federal na Paraíba" />
+  <title>Anonimização de Processos – JFPB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
+    /* ── Tokens JFPB ── */
     :root {
-      --bg: #0f172a;
-      --panel: #111827;
-      --panel-2: #1f2937;
-      --text: #e5e7eb;
-      --muted: #94a3b8;
-      --accent: #38bdf8;
-      --accent-2: #22c55e;
-      --danger: #ef4444;
-      --ring: rgba(56, 189, 248, 0.28);
+      --jfpb-blue:      #5776B0;
+      --jfpb-blue-dark: #3f5a96;
+      --jfpb-blue-light:#E4E8F3;
+      --jfpb-green:     #3AB186;
+      --jfpb-white:     #ffffff;
+      --jfpb-gray:      #f5f6fa;
+      --jfpb-border:    #d0d7e8;
+      --jfpb-text:      #222e50;
+      --jfpb-muted:     #6b7a99;
     }
 
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      margin: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+      background: var(--jfpb-gray);
+      color: var(--jfpb-text);
       min-height: 100vh;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(180deg, #020617 0%, #111827 100%);
-      color: var(--text);
+      display: flex;
+      flex-direction: column;
     }
 
-    .wrap {
-      max-width: 1050px;
+    /* ── TOPBAR ── */
+    .topbar {
+      background: var(--jfpb-white);
+      border-bottom: 1px solid var(--jfpb-border);
+      padding: 4px 0;
+      font-size: 0.72rem;
+      color: var(--jfpb-blue);
+    }
+    .topbar-inner {
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 32px 20px 48px;
+      padding: 0 20px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 18px;
     }
+    .topbar a { color: var(--jfpb-blue); text-decoration: none; }
+    .topbar a:hover { text-decoration: underline; }
 
-    .hero {
+    /* ── HEADER ── */
+    .header {
+      background: var(--jfpb-white);
+      padding: 14px 0 10px;
+      border-bottom: 3px solid var(--jfpb-blue);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
       gap: 18px;
-      margin-bottom: 24px;
+    }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+    /* Brasão SVG embutido */
+    .brasao {
+      width: 62px;
+      height: 62px;
+      flex-shrink: 0;
+    }
+    .header-text h1 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--jfpb-blue);
+      line-height: 1.2;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .header-text p {
+      font-size: 0.72rem;
+      color: var(--jfpb-muted);
+      font-weight: 300;
+      margin-top: 2px;
+    }
+    .header-badge {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--jfpb-blue-light);
+      border: 1px solid var(--jfpb-border);
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-size: 0.75rem;
+      color: var(--jfpb-blue);
+      font-weight: 500;
+    }
+    .header-badge span.dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--jfpb-green);
+      display: inline-block;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
     }
 
-    .hero h1 {
-      margin: 0;
-      font-size: 2rem;
+    /* ── NAVBAR ── */
+    .navbar {
+      background: var(--jfpb-blue);
+      padding: 0;
+    }
+    .navbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+    }
+    .navbar a {
+      display: inline-block;
+      color: rgba(255,255,255,0.88);
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 11px 16px;
+      transition: background 0.18s, color 0.18s;
+    }
+    .navbar a:hover, .navbar a.active {
+      background: rgba(0,0,0,0.18);
+      color: #fff;
+    }
+    .navbar-sep { flex: 1; }
+    .navbar-sic {
+      font-size: 0.68rem !important;
+      text-transform: none !important;
+      padding: 11px 12px !important;
+      border-left: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.75) !important;
     }
 
-    .hero p {
-      margin: 8px 0 0;
-      color: var(--muted);
+    /* ── PAGE TITLE BAND ── */
+    .page-band {
+      background: var(--jfpb-blue-light);
+      border-bottom: 1px solid var(--jfpb-border);
+      padding: 14px 0;
+    }
+    .page-band-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .page-band-icon {
+      width: 36px; height: 36px;
+      background: var(--jfpb-blue);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .page-band-icon svg { width: 20px; height: 20px; fill: #fff; }
+    .page-band h2 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--jfpb-blue);
+    }
+    .page-band p {
+      font-size: 0.8rem;
+      color: var(--jfpb-muted);
+      margin-top: 2px;
+      font-weight: 300;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .main-wrap {
+      max-width: 1200px;
+      margin: 24px auto;
+      padding: 0 20px 60px;
+      flex: 1;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: 1.2fr 0.8fr;
       gap: 18px;
     }
 
     .card {
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.2);
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      background: var(--jfpb-white);
+      border: 1px solid var(--jfpb-border);
+      border-radius: 4px;
+      padding: 22px;
+      box-shadow: 0 2px 8px rgba(87,118,176,0.07);
     }
+    .card-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--jfpb-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--jfpb-blue-light);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-title svg { width: 16px; height: 16px; fill: var(--jfpb-blue); flex-shrink:0; }
 
+    /* ── DROPZONE ── */
     .dropzone {
-      border: 2px dashed rgba(56, 189, 248, 0.6);
-      border-radius: 14px;
-      padding: 24px;
+      border: 2px dashed var(--jfpb-border);
+      border-radius: 4px;
+      padding: 28px 20px;
       text-align: center;
-      background: rgba(15, 118, 110, 0.06);
+      background: var(--jfpb-blue-light);
       transition: 0.2s ease;
+      cursor: pointer;
     }
+    .dropzone:hover, .dropzone.dragover {
+      border-color: var(--jfpb-blue);
+      background: rgba(87,118,176,0.08);
+    }
+    .dropzone svg { width: 36px; height: 36px; fill: var(--jfpb-blue); margin-bottom: 10px; }
+    .dropzone p { font-size: 0.85rem; color: var(--jfpb-muted); margin-top: 6px; }
 
-    .dropzone.dragover {
-      background: rgba(56, 189, 248, 0.12);
-      border-color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    input[type="file"] {
-      display: none;
-    }
+    input[type="file"] { display: none; }
 
     .file-label {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      background: var(--accent);
-      color: #06202b;
-      border-radius: 10px;
-      font-weight: 700;
+      gap: 8px;
+      padding: 9px 18px;
+      background: var(--jfpb-blue);
+      color: #fff;
+      border-radius: 3px;
+      font-weight: 500;
+      font-size: 0.82rem;
       cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: background 0.18s;
     }
+    .file-label:hover { background: var(--jfpb-blue-dark); }
+    .file-label svg { width: 16px; height: 16px; fill: #fff; }
 
     .file-name {
-      color: var(--muted);
-      margin-top: 14px;
-      min-height: 20px;
+      color: var(--jfpb-muted);
+      margin-top: 12px;
+      font-size: 0.8rem;
+      min-height: 18px;
     }
 
     .btn {
-      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
       border: none;
-      border-radius: 10px;
-      padding: 12px 18px;
+      border-radius: 3px;
+      padding: 11px 20px;
       font-weight: 700;
+      font-size: 0.82rem;
       cursor: pointer;
-      background: linear-gradient(90deg, var(--accent), #60a5fa);
-      color: #04111d;
+      background: var(--jfpb-blue);
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: background 0.18s;
     }
-
-    .btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
+    .btn:hover { background: var(--jfpb-blue-dark); }
+    .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+    .btn svg { width: 16px; height: 16px; fill: #fff; }
+    .btn.loading { position: relative; }
 
     .status {
-      margin-top: 16px;
-      color: var(--muted);
-      font-size: 0.95rem;
+      margin-top: 12px;
+      font-size: 0.82rem;
+      color: var(--jfpb-muted);
+      min-height: 18px;
     }
+    .status.ok { color: var(--jfpb-green); font-weight: 500; }
+    .status.err { color: #c0392b; font-weight: 500; }
 
+    /* ── META STATS ── */
     .meta {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
       margin-top: 14px;
     }
-
     .meta-item {
-      background: var(--panel-2);
-      border: 1px solid rgba(148, 163, 184, 0.18);
-      border-radius: 12px;
-      padding: 12px;
+      background: var(--jfpb-blue-light);
+      border: 1px solid var(--jfpb-border);
+      border-radius: 4px;
+      padding: 14px 10px;
+      text-align: center;
     }
-
     .meta-item strong {
       display: block;
-      font-size: 1.1rem;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--jfpb-blue);
+      line-height: 1;
       margin-bottom: 4px;
     }
-
-    .summary-box,
-    .entities-box,
-    .download-box {
-      margin-top: 12px;
-      background: #0b1220;
-      border: 1px solid rgba(148, 163, 184, 0.16);
-      border-radius: 12px;
-      padding: 14px;
-      color: var(--text);
-      white-space: pre-wrap;
-      line-height: 1.55;
+    .meta-item span {
+      font-size: 0.72rem;
+      color: var(--jfpb-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 300;
     }
+    .meta-item.status-ok strong { color: var(--jfpb-green); }
 
+    /* ── CONTENT BOXES ── */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+    .summary-box, .entities-box, .download-box {
+      margin-top: 10px;
+      background: var(--jfpb-gray);
+      border: 1px solid var(--jfpb-border);
+      border-radius: 3px;
+      padding: 14px;
+      font-size: 0.83rem;
+      line-height: 1.6;
+      color: var(--jfpb-text);
+      white-space: pre-wrap;
+      min-height: 80px;
+    }
+    .placeholder-text { color: var(--jfpb-muted); font-style: italic; }
+
+    /* ── ENTITY PILLS ── */
     .entity-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 7px;
     }
-
     .entity-pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(34, 197, 94, 0.14);
-      color: #bbf7d0;
-      border: 1px solid rgba(34, 197, 94, 0.35);
-      font-size: 0.88rem;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 3px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    .entity-pill.cpf    { background: rgba(58,177,134,0.12); color: #1d7a59; border: 1px solid rgba(58,177,134,0.3); }
+    .entity-pill.cnpj   { background: rgba(87,118,176,0.1);  color: var(--jfpb-blue); border: 1px solid rgba(87,118,176,0.25); }
+    .entity-pill.email  { background: rgba(230,126,34,0.1);  color: #a05000; border: 1px solid rgba(230,126,34,0.25); }
+    .entity-pill.phone  { background: rgba(142,68,173,0.1);  color: #6c3483; border: 1px solid rgba(142,68,173,0.25); }
+    .entity-pill.name   { background: rgba(192,57,43,0.09);  color: #7b1c12; border: 1px solid rgba(192,57,43,0.2); }
+    .entity-pill.other  { background: rgba(0,0,0,0.05);      color: #555;    border: 1px solid rgba(0,0,0,0.12); }
+    .pill-type {
+      font-size: 0.64rem;
+      opacity: 0.75;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
+    /* ── DOWNLOAD ── */
     .download-link {
       display: inline-flex;
       align-items: center;
+      gap: 8px;
       text-decoration: none;
-      border-radius: 12px;
-      padding: 10px 14px;
-      background: rgba(56, 189, 248, 0.16);
-      color: var(--accent);
+      border-radius: 3px;
+      padding: 10px 18px;
+      background: var(--jfpb-green);
+      color: #fff;
       font-weight: 700;
-      border: 1px solid rgba(56, 189, 248, 0.4);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: opacity 0.18s;
     }
+    .download-link:hover { opacity: 0.88; }
+    .download-link svg { width: 16px; height: 16px; fill: #fff; }
 
-    .placeholder {
-      color: var(--muted);
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--jfpb-blue);
+      color: rgba(255,255,255,0.85);
+      padding: 28px 0 18px;
+      margin-top: auto;
     }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: start;
+    }
+    .footer-left p { font-size: 0.78rem; font-weight: 300; line-height: 1.6; }
+    .footer-left p strong { font-weight: 700; color: #fff; }
+    .footer-right { text-align: right; font-size: 0.72rem; font-weight: 300; }
+    .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .footer-logo svg { width: 44px; height: 44px; fill: rgba(255,255,255,0.9); }
+    .footer-logo-text { color: #fff; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; }
+    .footer-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      margin: 14px 0 10px;
+    }
+    .footer-copy { font-size: 0.7rem; color: rgba(255,255,255,0.55); text-align: center; margin-top: 6px; }
 
+    /* ── SPINNER ── */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner {
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    .btn.loading .spinner { display: block; }
+    .btn.loading .btn-label { opacity: 0.6; }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 860px) {
-      .grid { grid-template-columns: 1fr; }
-      .meta { grid-template-columns: 1fr; }
-      .hero { flex-direction: column; align-items: flex-start; }
+      .grid, .content-grid { grid-template-columns: 1fr; }
+      .meta { grid-template-columns: repeat(3, 1fr); }
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-right { text-align: left; }
+      .navbar-inner { overflow-x: auto; }
+    }
+    @media (max-width: 600px) {
+      .meta { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ── PROGRESS BAR ── */
+    .progress-bar-wrap {
+      display: none;
+      height: 3px;
+      background: rgba(87,118,176,0.15);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--jfpb-blue);
+      width: 0%;
+      transition: width 0.4s;
+      animation: indeterminate 1.4s linear infinite;
+    }
+    @keyframes indeterminate {
+      0%   { width: 0%; margin-left: 0; }
+      50%  { width: 60%; margin-left: 20%; }
+      100% { width: 0%; margin-left: 100%; }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="hero">
-      <div>
-        <h1>Anonimização de PDF</h1>
-        <p>Upload, resumo, entidades detectadas e download do documento anonimizado.</p>
-      </div>
-    </div>
 
-    <div class="grid">
-      <div class="card">
-        <form id="uploadForm">
-          <div id="dropzone" class="dropzone">
-            <label class="file-label" for="file">Selecionar PDF</label>
-            <input type="file" id="file" name="file" accept="application/pdf" required />
-            <div id="fileName" class="file-name">Nenhum arquivo selecionado.</div>
-          </div>
-          <button type="submit" class="btn" id="submitBtn">Enviar e processar</button>
-          <div id="status" class="status">Pronto para receber um documento.</div>
-        </form>
-      </div>
-
-      <div class="card">
-        <h3>Resumo operacional</h3>
-        <div class="meta">
-          <div class="meta-item"><strong id="countEntities">0</strong><span>Entidades</span></div>
-          <div class="meta-item"><strong id="countTypes">0</strong><span>Tipos</span></div>
-          <div class="meta-item"><strong id="countStatus">—</strong><span>Status</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="grid" style="margin-top: 18px;">
-      <div class="card">
-        <h3>Resumo</h3>
-        <div id="summary" class="summary-box placeholder">—</div>
-      </div>
-
-      <div class="card">
-        <h3>Entidades Detectadas</h3>
-        <div id="entities" class="entities-box placeholder">—</div>
-      </div>
-    </div>
-
-    <div class="card" style="margin-top: 18px;">
-      <h3>Download do PDF Anonimizado</h3>
-      <div id="download" class="download-box placeholder">—</div>
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a href="https://www.trf5.jus.br/" target="_blank" rel="noopener">TRF5</a>
+      <a href="https://www.jfpb.jus.br/" target="_blank" rel="noopener">Portal JFPB</a>
+      <a href="https://sistemas.jfpb.jus.br/externo/sic-acesso-a-informacao/" target="_blank" rel="noopener">SIC – Ouvidoria</a>
     </div>
   </div>
 
-  <script>
-    const form = document.getElementById('uploadForm');
-    const fileInput = document.getElementById('file');
-    const fileName = document.getElementById('fileName');
-    const dropzone = document.getElementById('dropzone');
-    const status = document.getElementById('status');
-    const summaryEl = document.getElementById('summary');
-    const entitiesEl = document.getElementById('entities');
-    const downloadEl = document.getElementById('download');
-    const submitBtn = document.getElementById('submitBtn');
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <a class="header-logo" href="https://www.jfpb.jus.br/" target="_blank" rel="noopener" title="Portal JFPB">
+        <!-- Brasão simplificado JFPB -->
+        <svg class="brasao" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="48" fill="#5776B0" stroke="#fff" stroke-width="1.5"/>
+          <text x="50" y="38" text-anchor="middle" font-family="Roboto,Arial,sans-serif" font-size="9" font-weight="700" fill="#fff" letter-spacing="0.5">JUSTIÇA FEDERAL</text>
+          <!-- Balança -->
+          <line x1="50" y1="42" x2="50" y2="68" stroke="#fff" stroke-width="2.5"/>
+          <line x1="32" y1="48" x2="68" y2="48" stroke="#fff" stroke-width="2.5"/>
+          <circle cx="32" cy="55" r="6" fill="none" stroke="#fff" stroke-width="2"/>
+          <circle cx="68" cy="55" r="6" fill="none" stroke="#fff" stroke-width="2"/>
+          <line x1="32" y1="48" x2="32" y2="55" stroke="#fff" stroke-width="1.5"/>
+          <line x1="68" y1="48" x2="68" y2="55" stroke="#fff" stroke-width="1.5"/>
+          <line x1="42" y1="68" x2="58" y2="68" stroke="#fff" stroke-width="2"/>
+          <text x="50" y="83" text-anchor="middle" font-family="Roboto,Arial,sans-serif" font-size="8" font-weight="700" fill="#fff" letter-spacing="1">JFPB</text>
+        </svg>
+        <div class="header-text">
+          <h1>Justiça Federal na Paraíba</h1>
+          <p>Sistema de Anonimização de Documentos Judiciais</p>
+        </div>
+      </a>
+      <div class="header-badge">
+        <span class="dot"></span>
+        Sistema operacional
+      </div>
+    </div>
+  </header>
 
-    const countEntities = document.getElementById('countEntities');
-    const countTypes = document.getElementById('countTypes');
-    const countStatus = document.getElementById('countStatus');
+  <!-- NAVBAR -->
+  <nav class="navbar" aria-label="Menu principal">
+    <div class="navbar-inner">
+      <a href="https://www.jfpb.jus.br/" target="_blank" rel="noopener">Início</a>
+      <a href="https://www.jfpb.jus.br/index.php/institucional#conteudo" target="_blank" rel="noopener">Institucional</a>
+      <a href="https://www.jfpb.jus.br/index.php/servicos" target="_blank" rel="noopener">Carta de Serviços</a>
+      <a href="https://www.jfpb.jus.br/index.php/portal-transparencia" target="_blank" rel="noopener">Transparência</a>
+      <a href="https://www.jfpb.jus.br/index.php/lgpd" target="_blank" rel="noopener">LGPD</a>
+      <a href="#" class="active" aria-current="page">Anonimização</a>
+      <div class="navbar-sep"></div>
+      <a href="https://sistemas.jfpb.jus.br/externo/sic-acesso-a-informacao/" target="_blank" rel="noopener" class="navbar-sic">SIC / Ouvidoria</a>
+    </div>
+  </nav>
+
+  <!-- PAGE TITLE BAND -->
+  <div class="page-band">
+    <div class="page-band-inner">
+      <div class="page-band-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM8 15h8v1H8v-1zm0-3h8v1H8v-1zm0-3h5v1H8V9z"/>
+        </svg>
+      </div>
+      <div>
+        <h2>Anonimização de PDF</h2>
+        <p>Upload, detecção de entidades sensíveis, geração de resumo e download do documento anonimizado</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <main>
+    <div class="main-wrap">
+      <!-- ROW 1: Upload + Stats -->
+      <div class="grid">
+        <!-- UPLOAD CARD -->
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>
+            Envio do Documento
+          </div>
+          <form id="uploadForm">
+            <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="Área de upload de PDF">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM8 15h8v1H8v-1zm0-3h8v1H8v-1zm0-3h5v1H8V9z"/>
+              </svg>
+              <label class="file-label" for="file" id="fileLabel">
+                <svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>
+                Selecionar PDF
+              </label>
+              <input type="file" id="file" name="file" accept="application/pdf" required aria-label="Selecionar arquivo PDF" />
+              <p>Arraste o arquivo aqui ou clique para selecionar</p>
+              <div id="fileName" class="file-name" aria-live="polite">Nenhum arquivo selecionado.</div>
+            </div>
+
+            <button type="submit" class="btn" id="submitBtn" aria-label="Enviar e processar PDF">
+              <span class="spinner" id="spinner" aria-hidden="true"></span>
+              <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+              <span class="btn-label">Enviar e processar</span>
+            </button>
+            <div class="progress-bar-wrap" id="progressBar">
+              <div class="progress-bar-fill"></div>
+            </div>
+            <div id="status" class="status" role="status" aria-live="polite">Pronto para receber um documento.</div>
+          </form>
+        </div>
+
+        <!-- STATS CARD -->
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+            Resumo Operacional
+          </div>
+          <div class="meta">
+            <div class="meta-item">
+              <strong id="countEntities">—</strong>
+              <span>Entidades</span>
+            </div>
+            <div class="meta-item">
+              <strong id="countTypes">—</strong>
+              <span>Tipos</span>
+            </div>
+            <div class="meta-item" id="statusMetaItem">
+              <strong id="countStatus">—</strong>
+              <span>Status</span>
+            </div>
+          </div>
+          <div style="margin-top:18px;">
+            <div class="card-title" style="border-bottom:none; padding-bottom:0; margin-bottom:8px;">
+              <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+              Tarjas Aplicadas
+            </div>
+            <div class="meta" style="grid-template-columns: 1fr 1fr;">
+              <div class="meta-item">
+                <strong id="countRedactions">—</strong>
+                <span>Redações</span>
+              </div>
+              <div class="meta-item">
+                <strong id="countPages">—</strong>
+                <span>Páginas</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROW 2: Summary + Entities -->
+      <div class="content-grid">
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+            Resumo do Documento
+          </div>
+          <div id="summary" class="summary-box" aria-live="polite">
+            <span class="placeholder-text">O resumo será exibido após o processamento.</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.38 0 2.5 1.12 2.5 2.5S13.38 10 12 10 9.5 8.88 9.5 7.5 10.62 5 12 5zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+            Entidades Detectadas
+          </div>
+          <div id="entities" class="entities-box" aria-live="polite">
+            <span class="placeholder-text">As entidades sensíveis serão listadas aqui.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROW 3: Download -->
+      <div class="card" style="margin-top: 18px;">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          Download do PDF Anonimizado
+        </div>
+        <div id="download" class="download-box" aria-live="polite">
+          <span class="placeholder-text">O documento anonimizado estará disponível para download após o processamento.</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-logo">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
+            <line x1="50" y1="25" x2="50" y2="65" stroke="rgba(255,255,255,0.9)" stroke-width="3"/>
+            <line x1="28" y1="38" x2="72" y2="38" stroke="rgba(255,255,255,0.9)" stroke-width="3"/>
+            <circle cx="28" cy="50" r="9" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
+            <circle cx="72" cy="50" r="9" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
+            <line x1="28" y1="38" x2="28" y2="50" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
+            <line x1="72" y1="38" x2="72" y2="50" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
+            <line x1="40" y1="65" x2="60" y2="65" stroke="rgba(255,255,255,0.9)" stroke-width="3"/>
+          </svg>
+          <span class="footer-logo-text">Justiça Federal na Paraíba</span>
+        </div>
+        <p><strong>Sistema de Anonimização de Documentos Judiciais</strong></p>
+        <p>Seção Judiciária da Paraíba — Infraestrutura e Segurança da Informação</p>
+      </div>
+      <div class="footer-right">
+        <p>Av. Epitácio Pessoa, 1143<br>João Pessoa – PB, CEP 58030-000</p>
+        <p style="margin-top:8px;"><a href="https://www.jfpb.jus.br" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.75);text-decoration:none;">www.jfpb.jus.br</a></p>
+      </div>
+    </div>
+    <hr class="footer-divider" />
+    <div class="footer-copy">© 2026 Justiça Federal na Paraíba · Todos os direitos reservados · JFPB / TRF5</div>
+  </footer>
+
+  <script>
+    const form         = document.getElementById('uploadForm');
+    const fileInput    = document.getElementById('file');
+    const fileNameEl   = document.getElementById('fileName');
+    const dropzone     = document.getElementById('dropzone');
+    const statusEl     = document.getElementById('status');
+    const summaryEl    = document.getElementById('summary');
+    const entitiesEl   = document.getElementById('entities');
+    const downloadEl   = document.getElementById('download');
+    const submitBtn    = document.getElementById('submitBtn');
+    const progressBar  = document.getElementById('progressBar');
+    const countEntities  = document.getElementById('countEntities');
+    const countTypes     = document.getElementById('countTypes');
+    const countStatus    = document.getElementById('countStatus');
+    const countRedactions= document.getElementById('countRedactions');
+    const countPages     = document.getElementById('countPages');
+    const statusMetaItem = document.getElementById('statusMetaItem');
 
     fileInput.addEventListener('change', () => {
-      fileName.textContent = fileInput.files.length ? fileInput.files[0].name : 'Nenhum arquivo selecionado.';
+      fileNameEl.textContent = fileInput.files.length
+        ? fileInput.files[0].name
+        : 'Nenhum arquivo selecionado.';
     });
 
-    ['dragenter', 'dragover'].forEach((eventName) => {
-      dropzone.addEventListener(eventName, () => dropzone.classList.add('dragover'));
+    // Drag & Drop
+    dropzone.addEventListener('dragenter', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+    dropzone.addEventListener('dragover',  (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+    dropzone.addEventListener('dragleave', ()  => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+      if (e.dataTransfer.files.length) {
+        fileInput.files = e.dataTransfer.files;
+        fileNameEl.textContent = fileInput.files[0].name;
+      }
     });
 
-    ['dragleave', 'drop'].forEach((eventName) => {
-      dropzone.addEventListener(eventName, () => dropzone.classList.remove('dragover'));
+    // Keyboard accessibility for dropzone
+    dropzone.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
     });
+
+    function pillClass(type) {
+      const t = (type || '').toUpperCase();
+      if (t === 'CPF')   return 'cpf';
+      if (t === 'CNPJ')  return 'cnpj';
+      if (t === 'EMAIL') return 'email';
+      if (t === 'PHONE' || t === 'TELEFONE') return 'phone';
+      if (t === 'NAME'  || t === 'NOME')  return 'name';
+      return 'other';
+    }
+
+    function setProcessing(active) {
+      submitBtn.disabled = active;
+      submitBtn.classList.toggle('loading', active);
+      progressBar.style.display = active ? 'block' : 'none';
+    }
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      if (!fileInput.files.length) {
-        alert('Selecione um PDF para continuar.');
-        return;
-      }
+      if (!fileInput.files.length) { alert('Selecione um PDF para continuar.'); return; }
 
       const fd = new FormData();
       fd.append('file', fileInput.files[0]);
 
-      summaryEl.textContent = 'Processando...';
-      summaryEl.classList.remove('placeholder');
-      entitiesEl.textContent = 'Analizando entidades...';
-      entitiesEl.classList.remove('placeholder');
-      downloadEl.textContent = 'Aguardando arquivo anonimizado...';
-      downloadEl.classList.remove('placeholder');
-      status.textContent = 'Enviando o documento para anonimização...';
-      submitBtn.disabled = true;
-      countEntities.textContent = '0';
-      countTypes.textContent = '0';
-      countStatus.textContent = '…';
+      summaryEl.innerHTML  = '<span class="placeholder-text">Processando…</span>';
+      entitiesEl.innerHTML = '<span class="placeholder-text">Analisando entidades…</span>';
+      downloadEl.innerHTML = '<span class="placeholder-text">Aguardando…</span>';
+      statusEl.textContent = 'Enviando o documento para anonimização…';
+      statusEl.className   = 'status';
+      countEntities.textContent = '…';
+      countTypes.textContent    = '…';
+      countStatus.textContent   = '…';
+      countRedactions.textContent = '…';
+      countPages.textContent      = '…';
+      statusMetaItem.classList.remove('status-ok');
+      setProcessing(true);
 
       try {
-        const res = await fetch('/process-file', { method: 'POST', body: fd });
-        if (!res.ok) throw new Error('Erro no processamento');
+        const res  = await fetch('/process-file', { method: 'POST', body: fd });
+        if (!res.ok) throw new Error(`Erro HTTP ${res.status}`);
         const data = await res.json();
+
         const entities = Array.isArray(data.entities) ? data.entities : [];
-        const types = [...new Set(entities.map((item) => item.type))];
+        const types    = [...new Set(entities.map(it => it.type))];
 
+        // Summary
         summaryEl.textContent = data.summary || '—';
-        countEntities.textContent = String(entities.length);
-        countTypes.textContent = String(types.length);
-        countStatus.textContent = 'OK';
 
+        // Stats
+        countEntities.textContent   = String(entities.length);
+        countTypes.textContent      = String(types.length);
+        countStatus.textContent     = 'OK';
+        countRedactions.textContent = String(data.redactions_applied ?? '—');
+        countPages.textContent      = '—';
+        statusMetaItem.classList.add('status-ok');
+
+        // Entities
         if (!entities.length) {
-          entitiesEl.textContent = 'Nenhuma entidade sensível detectada.';
+          entitiesEl.innerHTML = '<span class="placeholder-text">Nenhuma entidade sensível detectada.</span>';
         } else {
-          const chips = entities.map((item) => `\n• ${item.type}: ${item.value}`).join('');
-          entitiesEl.textContent = chips;
+          const div = document.createElement('div');
+          div.className = 'entity-list';
+          entities.forEach(item => {
+            const pill = document.createElement('span');
+            pill.className = 'entity-pill ' + pillClass(item.type);
+            pill.innerHTML = `<span class="pill-type">${item.type}</span>${item.value}`;
+            div.appendChild(pill);
+          });
+          entitiesEl.innerHTML = '';
+          entitiesEl.appendChild(div);
         }
 
+        // Download
         downloadEl.innerHTML = '';
         const link = document.createElement('a');
         link.className = 'download-link';
         link.href = data.anonymized_download;
-        link.textContent = 'Baixar PDF anonimizado';
         link.target = '_blank';
+        link.rel = 'noopener';
+        link.id = 'downloadBtn';
+        link.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Baixar PDF anonimizado`;
         downloadEl.appendChild(link);
-        status.textContent = 'Documento processado com sucesso.';
+
+        statusEl.textContent = '✔ Documento processado com sucesso.';
+        statusEl.className   = 'status ok';
       } catch (err) {
-        summaryEl.textContent = 'Erro: ' + err.message;
-        entitiesEl.textContent = '—';
-        downloadEl.textContent = '—';
-        status.textContent = 'Falha no processamento.';
+        summaryEl.innerHTML  = `<span class="placeholder-text">Erro: ${err.message}</span>`;
+        entitiesEl.innerHTML = '<span class="placeholder-text">—</span>';
+        downloadEl.innerHTML = '<span class="placeholder-text">—</span>';
+        statusEl.textContent = '✖ Falha no processamento.';
+        statusEl.className   = 'status err';
         countStatus.textContent = 'ERR';
       } finally {
-        submitBtn.disabled = false;
+        setProcessing(false);
       }
     });
   </script>
